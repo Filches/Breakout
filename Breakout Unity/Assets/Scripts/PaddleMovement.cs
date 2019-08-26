@@ -8,10 +8,10 @@ public class PaddleMovement : MonoBehaviour
 
     private Vector3 playerPos = new Vector3(-2, 0, -2);
 
-    private void Update()
+    void Update()
     {
         float xPos = transform.position.x + (Input.GetAxis("Horizontal") * paddleSpeed);
-        playerPos = new Vector3(Mathf.Clamp(xPos, -14f, 10f), 0f, -2);
+        playerPos = new Vector3(Mathf.Clamp(xPos, -12f, 12f), 0f, -2);
         transform.position = playerPos;
 
     }
