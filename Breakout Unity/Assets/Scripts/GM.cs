@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+    AudioSource sond;
+    public AudioClip wong, gaeover, deth;
+
     public int lives = 3;
     public int bricks = 20;
     public float resetDelay = 1f;
@@ -27,6 +30,8 @@ public class GM : MonoBehaviour
             Destroy(gameObject);
 
         Setup();
+
+        sond = GetComponent<AudioSource>();
    
     }
 
@@ -43,6 +48,7 @@ public class GM : MonoBehaviour
             youWon.SetActive(true);
             Time.timeScale = .25f;
             Invoke ("RestartGame", resetDelay);
+            sond.PlayOneShot(wong);
         }
 
         if (lives <1)
@@ -50,6 +56,7 @@ public class GM : MonoBehaviour
             gameOver.SetActive(true);
             Time.timeScale = .25f;
             Invoke ("RestartGame", resetDelay);
+            sond.PlayOneShot(gaeover);
         }
     }
 
@@ -70,11 +77,13 @@ public class GM : MonoBehaviour
     public void LoseLife()
     {
         lives--;
-        livesText.text = "LIVES: " + lives;
+        livesText.text = "RED LIVES: " + lives;
         Instantiate(deathParticles, clonePaddle.transform.position, Quaternion.identity);
         Destroy(clonePaddle);
         Invoke ("SetupPaddle", resetDelay);
         CheckGameOver();
+        sond.PlayOneShot(deth);
+
     }
 
     void SetupPaddle()
