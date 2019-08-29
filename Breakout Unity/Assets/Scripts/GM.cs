@@ -8,18 +8,19 @@ public class GM : MonoBehaviour
     AudioSource sond;
     public AudioClip wong, gaeover, deth;
 
-    public int lives = 3;
-    public int bricks = 20;
+    public bool bed;
+    public int redLives = 3, bluLives = 3;
+    public int redbricks = 20, blubricks = 20;
     public float resetDelay = 1f;
-    public Text livesText;
-    public GameObject gameOver;
-    public GameObject youWon;
-    public GameObject bricksPrefab;
-    public GameObject paddle;
-    public GameObject deathParticles;
+    public Text livesTextRed, livesTextBlu;
+    public GameObject gameOverRed, gameOverBlu;
+    public GameObject youWonRed, youWonBlu;
+    public GameObject bricksPrefab, bricksPrefab2;
+    public GameObject redpaddle, blupaddle;
+    public GameObject deathParticles, deathParticles2;
     public static GM instance = null;
 
-    private GameObject clonePaddle;
+    private GameObject clonePaddle, clonePaddle2;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,25 +38,44 @@ public class GM : MonoBehaviour
 
     public void Setup()
     {
-        clonePaddle = Instantiate(paddle, transform.position, Quaternion.identity) as GameObject;
+        clonePaddle = Instantiate(redpaddle, transform.position, Quaternion.identity) as GameObject;
         Instantiate(bricksPrefab, transform.position, Quaternion.identity);
+
+        clonePaddle2 = Instantiate(blupaddle, transform.position, Quaternion.identity) as GameObject;
+        Instantiate(bricksPrefab2, transform.position, Quaternion.identity);
     }
 
     void CheckGameOver()
     {
-        if (bricks < 1)
+        if (redbricks < 1)
         {
-            youWon.SetActive(true);
+            youWonRed.SetActive(true);
             Time.timeScale = .25f;
             Invoke ("RestartGame", resetDelay);
             sond.PlayOneShot(wong);
         }
 
-        if (lives <1)
+        if (blubricks < 1)
         {
-            gameOver.SetActive(true);
+            youWonBlu.SetActive(true);
+            Time.timeScale = .25f;
+            Invoke("RestartGame", resetDelay);
+            sond.PlayOneShot(wong);
+        }
+
+        if (redLives <1)
+        {
+            gameOverRed.SetActive(true);
             Time.timeScale = .25f;
             Invoke ("RestartGame", resetDelay);
+            sond.PlayOneShot(gaeover);
+        }
+
+        if (bluLives < 1)
+        {
+            gameOverBlu.SetActive(true);
+            Time.timeScale = .25f;
+            Invoke("RestartGame", resetDelay);
             sond.PlayOneShot(gaeover);
         }
     }
@@ -74,10 +94,10 @@ public class GM : MonoBehaviour
         }
     }
 
-    public void LoseLife()
+    public void LoseLifeRed()
     {
-        lives--;
-        livesText.text = "RED LIVES: " + lives;
+        redLives--;
+        livesTextRed.text = "RED LIVES: " + redLives;
         Instantiate(deathParticles, clonePaddle.transform.position, Quaternion.identity);
         Destroy(clonePaddle);
         Invoke ("SetupPaddle", resetDelay);
@@ -85,15 +105,37 @@ public class GM : MonoBehaviour
         sond.PlayOneShot(deth);
 
     }
+    public void LoseLifeBlu()
+    {
+        bluLives--;
+        livesTextBlu.text = "BLU LIVES: " + bluLives;
+        Instantiate(deathParticles2, clonePaddle2.transform.position, Quaternion.identity);
+        Destroy(clonePaddle2);
+        Invoke("SetupPaddle2", resetDelay);
+        CheckGameOver();
+        sond.PlayOneShot(deth);
+
+    }
 
     void SetupPaddle()
     {
-        clonePaddle = Instantiate(paddle, transform.position, Quaternion.identity) as GameObject;
+        clonePaddle = Instantiate(redpaddle, transform.position, Quaternion.identity) as GameObject;
     }
 
-    public void DestroyBrick()
+    void SetupPaddle2()
     {
-        bricks--;
+        clonePaddle2 = Instantiate(blupaddle, transform.position, Quaternion.identity) as GameObject;
+    }
+
+    public void DestroyRedBrick()
+    {
+        redbricks--;
         CheckGameOver();
     }
+    public void DestroyBluBrick()
+    {
+        blubricks--;
+        CheckGameOver();
+    }
+    
 }

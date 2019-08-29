@@ -39,7 +39,7 @@ public class PaddleMovement : MonoBehaviour
         }
         if(playerSetting == PlayerController.player2)
         {
-            playerPos = new Vector3(Mathf.Clamp(xPos, -12f, 12f), 60f, 4);
+            playerPos = new Vector3(Mathf.Clamp(xPos, -16f, 8f), 60f, 4);
         }
         transform.position = playerPos;
 

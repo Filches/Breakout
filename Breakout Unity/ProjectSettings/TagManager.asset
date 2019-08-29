@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Blocks
+  - RedDeadZone
+  - BluDeadZone
+  - Blocks2
+  - BluBall
+  - RedBall
   layers:
   - Default
   - TransparentFX

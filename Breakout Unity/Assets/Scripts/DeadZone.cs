@@ -6,6 +6,16 @@ public class DeadZone : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        GM.instance.LoseLife();
+        if (gameObject.tag == "RedDeadZone")
+        {
+            GM.instance.LoseLifeRed();
+        }
+
+        if (gameObject.tag == "BluDeadZone")
+        {
+            GM.instance.LoseLifeBlu();
+        }
+            
     }
+
 }

@@ -15,8 +15,15 @@ public class Ball : MonoBehaviour
     private Rigidbody rb;
     private bool ballInPlay;
 
+    public KeyCode Shoot;
+
     void Awake ()
     {
+        if (gameObject.tag == "BluBall")
+        {
+            ballInitialVelocity = -600f;
+        }
+
         rb = GetComponent<Rigidbody>();
         bop = GetComponent<AudioSource>();
     }
@@ -24,7 +31,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && ballInPlay == false)
+        if (Input.GetKeyDown(Shoot) && ballInPlay == false)
         {
             transform.parent = null;
             ballInPlay = true;
@@ -43,6 +50,11 @@ public class Ball : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "Blocks")
+        {
+            bop.PlayOneShot(Blox);
+        }
+
+        if (collision.gameObject.tag == "Blocks2")
         {
             bop.PlayOneShot(Blox);
         }
