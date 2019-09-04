@@ -22,6 +22,13 @@ public class GM : MonoBehaviour
 
     private GameObject clonePaddle, clonePaddle2;
 
+    private Shake Shakes;
+
+    void Start()
+    {
+        Shakes = GameObject.FindGameObjectWithTag("Shake").GetComponent<Shake>();
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -103,6 +110,7 @@ public class GM : MonoBehaviour
         Invoke ("SetupPaddle", resetDelay);
         CheckGameOver();
         sond.PlayOneShot(deth);
+        Shakes.CamShake();
 
     }
     public void LoseLifeBlu()

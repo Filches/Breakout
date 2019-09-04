@@ -10,6 +10,7 @@ TagManager:
   - Blocks2
   - BluBall
   - RedBall
+  - Shake
   layers:
   - Default
   - TransparentFX
