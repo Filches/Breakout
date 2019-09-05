@@ -35,11 +35,11 @@ public class PaddleMovement : MonoBehaviour
         float xPos = transform.position.x + (Input.GetAxis(axisName) * paddleSpeed);
         if(playerSetting == PlayerController.player1)
         {
-            playerPos = new Vector3(Mathf.Clamp(xPos, -12f, 12f), 0f, -2);
+            playerPos = new Vector3(Mathf.Clamp(xPos, -14.5f, 14.5f), 0f, -2);
         }
         if(playerSetting == PlayerController.player2)
         {
-            playerPos = new Vector3(Mathf.Clamp(xPos, -16f, 8f), 60f, 4);
+            playerPos = new Vector3(Mathf.Clamp(xPos, -18.5f, 10.5f), 60f, 4);
         }
         transform.position = playerPos;
 

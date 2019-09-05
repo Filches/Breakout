@@ -98,6 +98,11 @@ public class GM : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             RestartGame();
+
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 
@@ -106,6 +111,7 @@ public class GM : MonoBehaviour
         redLives--;
         livesTextRed.text = "RED LIVES: " + redLives;
         Instantiate(deathParticles, clonePaddle.transform.position, Quaternion.identity);
+        Shakes.CamShake();
         Destroy(clonePaddle);
         Invoke ("SetupPaddle", resetDelay);
         CheckGameOver();
@@ -118,6 +124,7 @@ public class GM : MonoBehaviour
         bluLives--;
         livesTextBlu.text = "BLU LIVES: " + bluLives;
         Instantiate(deathParticles2, clonePaddle2.transform.position, Quaternion.identity);
+        Shakes.CamShake();
         Destroy(clonePaddle2);
         Invoke("SetupPaddle2", resetDelay);
         CheckGameOver();
